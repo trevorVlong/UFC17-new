@@ -45,7 +45,7 @@
         %bending-constrained payload for delta/b_max = .05
         
         
-        
+  % here is a stupid ass comment      
 % bending constrained time to turn in a 12.5m circle (delta/b = .1, Wpay =
 % 0 C_L = .8
  
