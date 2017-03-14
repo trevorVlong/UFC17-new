@@ -1,0 +1,3 @@
+%gets payload weight and creates Cd/CL ratio
+function [W_pay, CdCl] = Payload(CDA0, S, C
+
