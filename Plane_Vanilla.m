@@ -41,18 +41,16 @@
     [Wpay_tc,delta1,M01] = defweight(I0,N,d_spand,AR, S ,str.lambda,str.W_fuse);
         %returns bending-constrained payload, tip deflection, and Moment
         
-        
-  % here is a stupid ass commentW      
+       
 % bending constrained time to turn in a 12.5m circle (delta/b = .1, Wpay =
 % 0 C_L = .8
- 
+    
     R = 12.5; %meters
-    Wpay_tr = 0;
         %payload weight for plane
-    W_plane = double(W_wing)+double(W_body) + double(Wpay_tr);
+    W_uplane = double(W_wing)+double(str.W_fuse);
     
         %Total plane weight
-    [trev ,N ,V] = RevTime(W_plane,S,str.C_L,R,str.T_max);
+    [trev ,N ,T] = RevTime(W_uplane,AR,S,str.C_L,R,C_D);
         %revolution time
     
     

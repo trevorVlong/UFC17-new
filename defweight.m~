@@ -1,8 +1,9 @@
-%Payload backsolved by tip deflection
-
-function [W_pay,delta,M0] = defweight(I, N, d_span, AR, S,lambda,Wfuse)
+%Payload backsolved by tip deflection and unloaded velocity
+%plug in N = 0 
+function [W_pay,delta,M0, V, N] = defweight(I, N, d_span, AR, S,lambda,Wfuse)
 
 b = sqrt(AR*S);
+
 str = load('Master_Constant.mat');
 
     delta = b*d_span;
@@ -11,8 +12,14 @@ str = load('Master_Constant.mat');
         %curvature from delta
     M0 = kappa*str.E*I;
         %Wing Moment from payload & fusealage
+    if N ~= 0    
     W_pay = (12*M0*(1+lambda)/(1+2*lambda)*1/N)/b -Wfuse;
         %back solves for payload in terms of constrained deflection
+    end
+    if N == 0    
+        N = 12*M0*(1+lambda)/(1+2*lambda)*1/(Wfuse*b);
         
+        W_pay = 0;
         
+    end
 end
