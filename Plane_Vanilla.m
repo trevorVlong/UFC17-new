@@ -2,6 +2,16 @@
 
 %Payload
     str = load('Master_Constant.mat');
+    C_L = str.C_L;
+    
+    c_l0 = .8;
+    c_d8 = 1.0;
+    c_d2 = .02;
+    c_d1 = -.004;
+    c_d0 = .020;
+
+    c_d = c_d0+c_d1*(C_L-c_l0)+c_d2*(C_L-c_l0)^2+c_d8*(C_L-c_l0)^8;
+    
         %contains all constants from primary doc, can be changed
         
     [AR, S, cavg] = ARSspace(str.c_t,str.c_r,str.b);
@@ -15,7 +25,7 @@
         %makes both these values doubles since they come out as fractions
         
         T = str.T_max;
-    [W_pay, CdCl, CD] = Payload(str.CDA_0,str.c_d,S,str.C_L,AR, W_body,str.e,T);
+    [W_pay, CdCl, CD] = Payload(str.CDA_0,c_d,S,str.C_L,AR, W_body,str.e,T);
         %finds payload weight, drag coeff, and drag in terms of AR and S, along with constrained
         %values
     W_pay = double(W_pay);

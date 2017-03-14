@@ -7,6 +7,16 @@ N = 1;
 T = .7;
 R = 12.5;
 const = load('Master_Constant.mat');
+
+    C_L = str.C_L;
+    
+c_l0 = .8;
+c_d8 = 1.0;
+c_d2 = .02;
+c_d1 = -.004;
+c_d0 = .020;
+
+c_d = c_d0+c_d1*(C_L-c_l0)+c_d2*(C_L-c_l0)^2+c_d8*(C_L-c_l0)^8;
     %uploads constants from mat files
     
 %geometric values
@@ -22,7 +32,7 @@ const = load('Master_Constant.mat');
         %converts to floats
 %payload
     
-    [Wpay,CdCl,CD] = Payload(const.CDA_0,const.c_d,S,const.C_L,AR,Wbody,const.e,T);
+    [Wpay,CdCl,CD] = Payload(const.CDA_0,c_d,S,const.C_L,AR,Wbody,const.e,T);
         %gives payload for given thrust and geomtric values
     Wpay = double(Wpay);
     
