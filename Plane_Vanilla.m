@@ -18,6 +18,7 @@
         %finds Aspect Ratio, Planform area, and average chord length
         
     [W_wing,W_body] = WingWeight(str.rho, str.c_function, str.tau, AR,S , str.W_fuse);
+    
         %finds Wing weight and Plane body weight
     %%%% Make a new function to create the parts for this
     W_wing = double(W_wing);
@@ -30,13 +31,12 @@
         %values
     W_pay = double(W_pay);
         %converts answer to decimal instead of fraction
-    
+    V_wmax = sqrt(2*T/(1.225*S*CD));
     
 %Tip Deflection
-
     [delta, M0, I0] = WingBend(str.E,str.tau,str.epsilon,str.c_t,str.c_r,AR,S,str.N,str.W_fuse,W_pay);  
         %gets Moment, Bending inertia, and deflection of wingtip
-
+    
     d_span = double(delta/str.b); 
         %gets tip-deflection to wingspan ratio
     
@@ -50,8 +50,9 @@
         %tip deflection ratio
     [Wpay_tc,delta1,M01] = defweight(I0,N,d_spand,AR, S ,str.lambda,str.W_fuse);
         %returns bending-constrained payload, tip deflection, and Moment
-        
-       
+     WplaneBC = W_body +Wpay_tc;
+     Tbc = N*CD/C_L*WplaneBC;
+     V_bc = sqrt(2*Tbc/(1.225*S*CD));
 % bending constrained time to turn in a 12.5m circle (delta/b = .1, Wpay =
 % 0 C_L = .8
     
@@ -62,7 +63,6 @@
         %Total plane weight
     [trev ,N ,T] = RevTime(W_uplane,AR,S,str.C_L,R,CD);
         %revolution time
-    
-    
+   
     
     
