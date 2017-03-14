@@ -10,11 +10,14 @@
     [W_wing,W_body] = WingWeight(str.rho, str.c_function, str.tau, AR,S , str.W_fuse);
         %finds Wing weight and Plane body weight
     %%%% Make a new function to create the parts for this
-    W_payd = ((((str.CDA_0)/S)/(str.C_L))+(str.c_d)/(str.C_L)+(str.C_L)/(pi*AR*str.e));
-    
-    
-    W_pay = str.T_max/(W_payd)-W_body;
-        %finds payload weight in terms of AR and S
+    W_wing = double(W_wing);
+    W_body = double(W_body);    
+        %makes both these values doubles since they come out as fractions
+        
+        T = str.T_max;
+    [W_pay, C_D, D] = Payload(str.CDA_0,str.c_d,S,str.C_L,AR, W_body,str.e,T);
+        %finds payload weight, drag coeff, and drag in terms of AR and S, along with constrained
+        %values
     W_pay = double(W_pay);
         %converts answer to decimal instead of fraction
     
@@ -35,24 +38,18 @@
     N = 1;
         %load factor
         %tip deflection ratio
-    [Wpay_tc1,delta1,M01] = defweight(I0,N,d_spand,AR, S ,str.lambda,str.W_fuse);
+    [Wpay_tc,delta1,M01] = defweight(I0,N,d_spand,AR, S ,str.lambda,str.W_fuse);
         %returns bending-constrained payload, tip deflection, and Moment
-    d_spand2 = .05;
-    [Wpay_tc2,delta2,M02] = defweight(I0,1,d_spand2,AR, S,str.lambda,str.W_fuse);
-        %bending-constrained payload for delta/b_max = .05
-    d_spand3 = .15;
-    [Wpay_tc3,delta3,M03] = defweight(I0,1,d_spand3,AR,S,str.lambda,str.W_fuse);
-        %bending-constrained payload for delta/b_max = .05
         
         
-  % here is a stupid ass comment      
+  % here is a stupid ass commentW      
 % bending constrained time to turn in a 12.5m circle (delta/b = .1, Wpay =
 % 0 C_L = .8
  
     R = 12.5; %meters
     Wpay_tr = 0;
         %payload weight for plane
-    W_plane = W_wing+W_body + Wpay_tr;
+    W_plane = double(W_wing)+double(W_body) + double(Wpay_tr);
     
         %Total plane weight
     [trev ,N ,V] = RevTime(W_plane,S,str.C_L,R,str.T_max);
