@@ -12,8 +12,8 @@ const = load('Master_Constant.mat');
 %geometric values
     [AR, S, cavg] = ARSspace(const.c_t,const.c_r,const.b);
     
-     AR = 11;
-     S = .25;
+     AR = 20;
+     S = .34;
         %outputs Aspect ratio, reference area, and average chord
     [Wwing,Wbody] = WingWeight(const.rho,const.c_function, const.tau,AR,S,const.W_fuse);
         %outputs the wing weight and the generic body weight of the plane
@@ -22,7 +22,7 @@ const = load('Master_Constant.mat');
         %converts to floats
 %payload
     
-    [Wpay,CD,D] = Payload(const.CDA_0,const.c_d,S,const.C_L,AR,Wbody,const.e,T);
+    [Wpay,CdCl,CD] = Payload(const.CDA_0,const.c_d,S,const.C_L,AR,Wbody,const.e,T);
         %gives payload for given thrust and geomtric values
     Wpay = double(Wpay);
     

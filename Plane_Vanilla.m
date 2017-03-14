@@ -15,7 +15,7 @@
         %makes both these values doubles since they come out as fractions
         
         T = str.T_max;
-    [W_pay, C_D, D] = Payload(str.CDA_0,str.c_d,S,str.C_L,AR, W_body,str.e,T);
+    [W_pay, CdCl, CD] = Payload(str.CDA_0,str.c_d,S,str.C_L,AR, W_body,str.e,T);
         %finds payload weight, drag coeff, and drag in terms of AR and S, along with constrained
         %values
     W_pay = double(W_pay);
@@ -50,7 +50,7 @@
     W_uplane = double(W_wing)+double(str.W_fuse);
     
         %Total plane weight
-    [trev ,N ,T] = RevTime(W_uplane,AR,S,str.C_L,R,C_D);
+    [trev ,N ,T] = RevTime(W_uplane,AR,S,str.C_L,R,CD);
         %revolution time
     
     
